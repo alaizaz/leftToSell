@@ -8,12 +8,15 @@ dataset <- read_excel("Left to Sell - Data dummy.xlsx")
 head(dataset)
 
 ggplot(dataset)+
-  geom_line(aes( x = dataset$Date, y = dataset$'Left to Sell sqm', col = Market), size = 1)+
+  geom_line(aes( x = dataset$Date, y = dataset$'Left to Sell sqm'), size = 1, col = "red")+
   geom_line(aes( x = dataset$Date, y = dataset$'Max.Equippable Space'), size = 1)+
-  geom_line(aes( x = dataset$Date, y = dataset$'Equipped Space'), size = 1, col = "red")+
+  geom_line(aes( x = dataset$Date, y = dataset$'Equipped Space'), size = 1, col = "purple")+
+  geom_area(aes(x = dataset$Date, y = dataset$'Equipped Space'), col = "purple", alpha = 0.1)+
   geom_smooth(aes( x = dataset$Date, y = dataset$'Left to Sell sqm'), method = "lm", level = 0.5)+
-  geom_smooth(aes( x = dataset$Date, y = dataset$'Left to Sell sqm'), method = "lm")+
-  facet_wrap(~COUNTRY)+
+  geom_smooth(aes( x = dataset$Date, y = dataset$'Left to Sell sqm'), method = "loess")+
+  geom_area(aes(x = dataset$Date, y = dataset$'Left to Sell sqm'), col = "red", alpha = 0.2)+
+  geom_point(aes(x = dataset$Date, y = dataset$'Left to Sell sqm'), col = "red")+
+  facet_wrap(~Market)+
   xlab("Date")+
   ylab("Capacity")+
   theme_minimal()
